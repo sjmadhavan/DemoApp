@@ -4,7 +4,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
+session_start();
 include_once '../config/database.php';
 include_once '../class/basket.php';
 include_once '../class/product.php';
@@ -23,11 +23,18 @@ switch ($_GET['con']) {
         } else{
             echo json_encode("Product could not be deleted");
         }
+        break;
     case 2:
     default:
+        $product_data = json_decode(file_get_contents("php://input"));
         $basket = new Basket();
-        $items = $basket->deleteItem();
-        return;
+        if($basket->deleteItem($product_data)){
+            echo json_encode("Product deleted.");
+        } else{
+            echo json_encode("Product could not be deleted");
+        }
+        break;
+
 }
 
 ?>

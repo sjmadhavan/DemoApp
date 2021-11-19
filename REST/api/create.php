@@ -5,6 +5,8 @@
     header("Access-Control-Max-Age: 3600");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+    session_start();
+    
     include_once '../config/database.php';
     include_once '../class/basket.php';
     include_once '../class/product.php';
@@ -24,11 +26,13 @@
             } else{
                 echo 'Product could not be added.';
             }
+            break;
         case 2:
         default:
+            $product_data = json_decode(file_get_contents("php://input"));
             $basket = new Basket();
-            $items = $basket->addItem();
-            return;
+            $items = $basket->addItem($product_data);
+            break;
     }
     
 

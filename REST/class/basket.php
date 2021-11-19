@@ -2,7 +2,7 @@
 class Basket{
 
     // Db connection
-    public function __construct($db){
+    public function __construct(){
     }
     
     // GET
@@ -14,8 +14,7 @@ class Basket{
     }
     
     // ADD
-    public function addItem(){
-        $product_data = json_decode(file_get_contents("php://input"));
+    public function addItem($product_data){
         $product_id = $product_data->id;
         $product_name = $product_data->name;
         $product_price = $product_data->price;
@@ -58,8 +57,7 @@ class Basket{
     
     
     // DELETE
-    function deleteItem(){
-        $product_data = json_decode(file_get_contents("php://input"));
+    function deleteItem($product_data){      
         $product_id = $product_data;
         
         foreach($_SESSION["shopping_cart"] as $keys => $values)
