@@ -2,8 +2,6 @@
 tideways_xhprof_enable();
 session_start();
 
-
-
 ?>
 <!--  -->
 <!DOCTYPE html>
@@ -23,7 +21,7 @@ session_start();
 	<body>
 		<div class="container" ng-app="shoppingCart" ng-controller="shoppingCartController" ng-init="loadProduct(); fetchCart();">
 			<br />
-			<h2 align="center"> Shopping Cart using AngularJS</h2>
+			<h2 align="center"> Demo - Shopping Cart</h2>
 			<br />
 			<form method="post">
 				<div class="row">
@@ -72,7 +70,7 @@ var app = angular.module('shoppingCart', []);
 app.controller('shoppingCartController', function($scope, $http){
 	
 	$scope.loadProduct = function(){
-		$http.get('http://192.168.10.20/fetch.php').success(function(data){
+		$http.get('http://192.168.10.20/REST/api/read.php?con=1').success(function(data){
             $scope.products = data;
         })
 	};
@@ -80,7 +78,7 @@ app.controller('shoppingCartController', function($scope, $http){
 	$scope.carts = [];
 	
 	$scope.fetchCart = function(){
-		$http.get('http://192.168.10.20/fetch_cart.php').success(function(data){
+		$http.get('http://192.168.10.20/REST/api/read.php?con=2').success(function(data){
             $scope.carts = data;
         })
 	};
@@ -98,7 +96,7 @@ app.controller('shoppingCartController', function($scope, $http){
 	$scope.addtoCart = function(product){
 		$http({
             method:"POST",
-            url:"http://192.168.10.20/add_item.php",
+            url:"http://192.168.10.20/REST/api/create.php?con=2",
             data:product
         }).success(function(data){
 			$scope.fetchCart();
@@ -108,7 +106,7 @@ app.controller('shoppingCartController', function($scope, $http){
 	$scope.removeItem = function(id){
 		$http({
             method:"POST",
-            url:"http://192.168.10.20/remove_item.php",
+            url:"http://192.168.10.20/REST/api/delete.php?con=2",
             data:id
         }).success(function(data){
 			$scope.fetchCart();
