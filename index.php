@@ -71,7 +71,7 @@ var app = angular.module('shoppingCart', []);
 app.controller('shoppingCartController', function($scope, $http){
 	
 	$scope.loadProduct = function(){
-		$http.get('http://192.168.10.20/demo/fetch.php').success(function(data){
+		$http.get('http://192.168.10.20/fetch.php').success(function(data){
             $scope.products = data;
         })
 	};
@@ -79,7 +79,7 @@ app.controller('shoppingCartController', function($scope, $http){
 	$scope.carts = [];
 	
 	$scope.fetchCart = function(){
-		$http.get('http://192.168.10.20/demo/fetch_cart.php').success(function(data){
+		$http.get('http://192.168.10.20/fetch_cart.php').success(function(data){
             $scope.carts = data;
         })
 	};
@@ -97,7 +97,7 @@ app.controller('shoppingCartController', function($scope, $http){
 	$scope.addtoCart = function(product){
 		$http({
             method:"POST",
-            url:"http://192.168.10.20/demo/add_item.php",
+            url:"http://192.168.10.20/add_item.php",
             data:product
         }).success(function(data){
 			$scope.fetchCart();
@@ -107,7 +107,7 @@ app.controller('shoppingCartController', function($scope, $http){
 	$scope.removeItem = function(id){
 		$http({
             method:"POST",
-            url:"http://192.168.10.20/demo/remove_item.php",
+            url:"http://192.168.10.20/remove_item.php",
             data:id
         }).success(function(data){
 			$scope.fetchCart();
