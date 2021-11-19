@@ -1,4 +1,5 @@
 <?php
+tideways_xhprof_enable();
 session_start();
 
 
@@ -117,3 +118,13 @@ app.controller('shoppingCartController', function($scope, $http){
 });
 
 </script>
+
+<?php
+
+$data = tideways_xhprof_disable();
+file_put_contents(
+    sys_get_temp_dir() . "/" . uniqid() . ".vidalytics.xhprof",
+    serialize($data)
+);
+
+?>
